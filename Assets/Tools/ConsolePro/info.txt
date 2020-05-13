@@ -1,0 +1,9 @@
+Editor_Console_Pro 3.952
+
+log过滤系统
+
+导入后直接通过Window->Console Pro 3打开log界面，可以进行log过滤等操作
+
+与unity默认log系统相比，过滤更方便
+
+asset store类似的log过滤有很多，如果只是本地过滤可以直接使用插件

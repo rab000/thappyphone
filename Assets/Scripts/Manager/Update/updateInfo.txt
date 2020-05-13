@@ -1,0 +1,22 @@
+写下流程和注意事项
+
+注意事项
+Tools/resInfoTable用于生成StreamingAsset内资源描述表resInfoList
+有这个表才知道要从包内解压哪些资源到沙盒
+
+打包处理资源流程
+1 确保所有需要的最新bundle都放到streamingAsset下
+2 对Resource下的ui prefab打不同平台的包，打完的bundle放到streamingAsset下
+3 确保资源不缺少的情况下重新生成一次resInfoList(这个文件一定要存在，里面资源数可以为0)
+4 确保resVer存储，并且里面手动填写最后的资源版本
+
+热更步骤
+1 确保所有需要的最新bundle都放到streamingAsset下
+2 对Resource下的ui prefab打不同平台的包，打完的bundle放到streamingAsset下
+3 确保资源不缺少的情况下重新生成一次resInfoList(这个文件一定要存在，里面资源数可以为0)
+4 确保resVer存储，并且里面手动填写最后的资源版本
+5 把当前平台最新资源(工程中streamingAsset目录下所有内容)，上传到cdn
+
+6 重复2-5步骤，制作下个平台的资源内容，上传到cdn
+
+

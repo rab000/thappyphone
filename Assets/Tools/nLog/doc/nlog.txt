@@ -1,0 +1,39 @@
+
+注意
+LogMgr.MsgRec只用于处理向屏幕输出的情况
+如果是向编辑器控制台输出，这个函数完全不起作用
+这么做的好处是避免Screen，Console同时存在引起的复杂问题
+-------------------------------
+为了确保log功能独立性
+http，file处理相关都是重复代码
+尽量不依赖外部代码
+-------------------------------
+为什么要兼容Debug呢，因为当出现空指针之类的错误时，保留Debug.Log会有log输出
+为什么要新写一个LogMgr.I呢，可以使用tag，color，特别时tag的功能，方便过滤
+-------------------------------
+目前LogMgr有4个功能
+1 向console输出log---这个本地调试用
+2 向ui输出log---用于看移动端简易log
+3 向沙盒输出log---无论本地，真机，远程都可以输出记录log
+4 向server输出log---可以在pc看移动端log，这个比较实用
+-------------------------------
+使用方法
+调整LogConfig中的参数
+
+本地调试简易配置
+BeWrite2Screen = false
+BeWrite2File = true/false
+BeWirte2Remote = false;
+只输出到本地控制台，如果需要保留log文件就开BeWrite2File
+
+移动端调试建议配置
+BeWrite2Screen = true
+BeWrite2File = true/false
+BeWirte2Remote = true;
+输出到屏幕和远程，移动端沙盒可以保留log，也可以发送到remote后再保存
+
+LogHttpClient
+LogHttpServer
+这两个类中配置ip和port才能使用远程
+
+-------------------------------

@@ -1,0 +1,68 @@
+
+########################################################################
+####使用网络模块的步骤####
+1 开发AbsNetBack子类，用于制定消息格式
+2 在NetBackMgr.RegistNetBack()中注册AbsNetBack子类
+3 在任何位置新建一个ProceeMsg(Cmd4Rec cmd)函数，把这个函数注册到  AbsNetMgr.SetRevMsgCallback(Listener<Cmd4Rec> handleMessage),用于接收消息
+4 ProcessMsg中，使用如下格式处理消息
+  //switch(cmd.msgid){
+  // xxxxxxxx
+  //}
+
+########################################################################
+####TcpNetMgr连接成功后安装接收信息操作的流程####
+1 VConnect连接
+2 连接成功异步回调OnConnect
+3 OnConnect调用SetupReceiveCallback
+4 SetupReceiveCallback调用Steam.BeginRead这里如果收到数据，会等待Stream中的数据并异步调用OnReceiveData
+5 OnReceiveData作用是处理一次从Steam中读到的数据(这里用到了3个netBuffer)当处理完毕后，继续调用SetupReceiveCallback(异步等待下一次OnReceiveData)
+
+
+########################################################################
+####3个netBuffer处理网络数据的流程####
+/// 用于处理数据的双缓存
+/// 具体流程
+/// 1 从网络流中读取数据到NetBuffer
+/// 2 把NetBuffer中的数据转存到 处理数据的缓存CurNetBuffer(NetBuffer1)
+/// 3 处理CurNetBuffer中的数据，如果发现CurNetBuffer中不足一条数据，就把剩余数据放到NextNetBuffer(NetBuffer2)中
+/// 4 翻转CurNetBuffer与NextNetBuffer，就是切换NetBuffer1，NetBuffer2代表的含义
+/// 5 当下一次向数据缓存CurNetBuffer存数据时，因为CurNetBuffer(NetBuffer2)中还有一部分数据，
+/// 把新读入的数据放到上一次剩余数据的后面，然后在进行数据解析处理
+
+########################################################################
+####注册接收消息回调的详细过程####
+1 实例化并注册所有具体AbsNetBack(netback作用时解析byte成cmd)，TcpNetwork初始化时调用_NetBackMgr.RegistNetBack ()做这个操作
+
+2 具体AbsNetBack初始化时（看下NetDouYiBack类和AbsNetBack类）
+  把自己内部所有ReceiveXXX函数(作用就是解析byte成cmd)通过_NetBackMgr.RegistMsg注册到NetBackMgr.NetBackAnalyzerDic
+
+3 前2个步骤是初始化时的操作，而cmd的注册是在解析消息并得到cmd之后
+  当NetBackMgr.AnalysisCache4RecMsg(作用是把存到缓存NetBackMgr.Cache4RecMsgQueue中的消息缓存解析成具体的cmd)时，
+  就会调用具体AbsNetBack中的具体ReceiveXXX
+  ReceiveXXX会解析生成cmd，并通过_NetBackMgr.RegisterCommand (cmd);把cmd注册到NetBackMgr.Cache4RecMsgQueue
+
+
+########################################################################
+####接收消息详细过程####
+
+1 缓存网络数据
+  从网络流得到bytes，把bytes缓存到Cache4RecMsg(包含msgid，byte[])，并存放到NetBackMgr.Cache4RecMsgQueue中
+
+2 从缓存网络数据解析Cmd并保存(通过Tick.Update查询并执行) 
+  在Tick循环(Tick类，NetBackMgr构建时注册了这个循环)中通过NetBackMgr.ReceiveMessages解析NetBackMgr.receiveQueue
+  具体的解析过程是，通过NetBackMgr.MainAnalyzer中存储的各个具体AbsNetBack.Receivexxx方法来生成具体Cmd4Rec，并把Cmd4Rec存入到AbsNetMgr.Cmd4RecQueue
+ 
+3 从Cmd队列中取Cmd，执行收到消息后的逻辑处理
+  在TcpNetWorkMgr.VTick中，逐个取出AbsNetMgr.Cmd4RecQueue中的cmd，通过TcpNetMgr.RecMsgCallback这个委托，把当前要处理的cmd发送给关注这个委托的观察者
+  观察者通过类似switch(cmd.id)的形式，逐级发给各个子逻辑
+
+
+下面研究下谁注册了这个委托，发现cqbM中主要是GameMode.Create中把NetHandleRevMessage函数注册到了委托
+NetHandleRevMessage（CommandSys msg） 按顺序分别验证并执行  公共消息，场景消息，ui消息
+这里就是逐级传递msg.msgID验证并处理实际消息返回逻辑的过程
+
+总结: 这种处理的好处，接受到的网络信息先直接存了起来(这个跟网络相关使用SafeQueue保证了多线程同步问题)，
+然后tick时解析成本地cmd再存起来，至于什么时候再处理cmd队列，原始cqbmobile实在gamemode.tick中做的
+接收，解析cmd，处理cmd3者被分开了
+
+########################################################################
