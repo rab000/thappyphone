@@ -8,7 +8,7 @@ using NLog;
 /// </summary>
 public class TouchMgr : SingletonBehaviour<TouchMgr>
 {
-    private bool BeShowLog = false;
+    private bool BeShowLog = true;
 
     // 拖动事件
     public event Listener<Vector2> TouchMoveEvent;

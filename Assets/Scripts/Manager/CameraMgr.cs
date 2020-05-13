@@ -200,7 +200,7 @@ public class CameraMgr : MonoBehaviour {
                 TouchMgr.GetIns().TouchMoveEvent += ProcessMoveEvent;
                 TouchMgr.GetIns().TouchScaleEvent += ProcessScaleEvent;
                 break;
-            case GameConfig.InputCtrlTypeEnum.pc:
+            case GameConfig.InputCtrlTypeEnum.pc:               
                 PCInputMgr.GetIns().MouseMoveEvent += ProcessMoveEvent;
                 PCInputMgr.GetIns().MouseScrollWheelEvent += ProcessScaleEvent;
                 break;
@@ -257,6 +257,8 @@ public class CameraMgr : MonoBehaviour {
         if (!CanRotate) return;
 
         if (null == cameraTargetTrm) return;
+
+        Debug.Log("转动把相机");
 
         y -= moveV2.y * ySpeed;
         x += moveV2.x * xSpeed;

@@ -65,6 +65,7 @@ public class PCInputMgr : SingletonBehaviour<PCInputMgr>
 
     private void ProcessMouse()
     {
+
         if (null != MouseInputEvent)
         {
             //鼠标滑动事件
@@ -144,6 +145,7 @@ public class PCInputMgr : SingletonBehaviour<PCInputMgr>
 
             if (bMouseRightDown)
             {
+                Debug.Log("发出鼠标右键事件");
                 float offx = Input.GetAxis("Mouse X");
                 float offy = Input.GetAxis("Mouse Y");
                 Vector2 v2 = new Vector2(offx, offy);

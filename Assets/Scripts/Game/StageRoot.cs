@@ -10,6 +10,11 @@ public class StageRoot : MonoBehaviour
     [SerializeField] Button BackBtn;
     private void Awake()
     {
+        ScreenOrientationHelper.SetOrientation(ScreenOrientationHelper.NScreenOrientation.LandscapeLeft);
+    }
+
+    private void Start()
+    {
         ScreenOrientationHelper.SetOrientation(ScreenOrientationHelper.NScreenOrientation.LandspaceAutoRotation);
     }
 

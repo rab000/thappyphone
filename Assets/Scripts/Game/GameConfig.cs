@@ -24,7 +24,7 @@ public class GameConfig
     /// 输入方式，影响输入方式
     /// 键盘鼠标或者触控操作
     /// </summary>
-    public static InputCtrlTypeEnum InputCtrlType = InputCtrlTypeEnum.mobile;
+    public static InputCtrlTypeEnum InputCtrlType = InputCtrlTypeEnum.pc;
 
     //导入并解析配置文件
     public static void LoadConfig()
