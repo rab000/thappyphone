@@ -1,0 +1,44 @@
+ManifestFileVersion: 0
+CRC: 3163019068
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ba8b05c1cd7a659f069d69bb5c154c9e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 79a0f7bd3e56cfc482a918757dabb90a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 8b926eb37fed1d748b80e3b4756bc569, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 95a15aa59f941764a9ac8c746b2f883b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 46ec582e8d6cb504fb1d0160568835a4, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/SceneEditor/Prefab/Role/mdl_Tamamo_StageA.prefab
+Dependencies: []

@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3042335004
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b55af62a48e6db7c7b007d98459e0d46
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/LWTool/Inhouse/CelluloidFilmShader/Anime/Textures/Default_Hair_JitterMap01.jpg
+- Assets/LWTool/Inhouse/CelluloidFilmShader/Anime/Textures/red_blue_channel.png
+- Assets/LWTool/Inhouse/CelluloidFilmShader/Anime/Textures/red_channel.png
+Dependencies: []

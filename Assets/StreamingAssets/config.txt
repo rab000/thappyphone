@@ -1,0 +1,4 @@
+#游戏配置文件
+#输入方式
+#有mobile(触屏)，pc(鼠标键盘)两种
+InputCtrlType=mobile

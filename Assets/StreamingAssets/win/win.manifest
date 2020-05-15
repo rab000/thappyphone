@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 4150295968
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: role.ab
+      Dependencies: {}
+    Info_1:
+      Name: ani_common_textures.ab
+      Dependencies: {}
+    Info_2:
+      Name: mdl_isabella_stagea_hairb.ab
+      Dependencies: {}
+    Info_3:
+      Name: mdl_katya_stagea.ab
+      Dependencies: {}
+    Info_4:
+      Name: mdl_moxi_stagea.ab
+      Dependencies: {}
+    Info_5:
+      Name: mdl_rose_stagea.ab
+      Dependencies: {}
+    Info_6:
+      Name: mdl_tamamo_stagea.ab
+      Dependencies: {}
+    Info_7:
+      Name: mdl_yueling_stagea_low_addblendshape_migicacloth_variant.ab
+      Dependencies: {}
+    Info_8:
+      Name: stage1.ab
+      Dependencies:
+        Dependency_0: role.ab
