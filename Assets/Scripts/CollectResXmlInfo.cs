@@ -57,8 +57,8 @@ public class CollectResXmlInfo : MonoBehaviour
         for (int i = 0; i < bundleNames.Length; i++)
         {
             string hash = xml.GetAssetBundleHash(bundleNames[i]).ToString();
-
             
+
             string path = RelePath + "/" + bundleNames[i];
             //Debug.LogError("---i:" + i + " relepath:" + path + " hash:" + hash);
             tempDic.Add(path, hash);

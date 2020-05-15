@@ -4,14 +4,11 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.IO;
-/// <summary>
-/// 记录下小问题，这里面写死了要查找lua，table，res/map,res/re路径
-/// 如果没有这些路径怎么办
-/// </summary>
-public class NgEditor : MonoBehaviour
+
+public class GameEditor : MonoBehaviour
 {
     
-    private static readonly Dictionary<string, string> ResInfoDic = new Dictionary<string, string>();
+    private static readonly Dictionary<string, ResInfoStruct> ResInfoDic = new Dictionary<string, ResInfoStruct>();
 
     [MenuItem("Tools/resInfoTable")]
     public static void GenerateResInfo()
@@ -24,7 +21,7 @@ public class NgEditor : MonoBehaviour
         bool b = FileHelper.BeFolderExist(pathTableFolder);
         if (b)
         {
-            ProcessTable(pathTableFolder);
+            ProcessNoBundleFile(pathTableFolder,"table");
         }
         else
         {
@@ -36,7 +33,7 @@ public class NgEditor : MonoBehaviour
         b = FileHelper.BeFolderExist(pathLuaFolder);
         if (b)
         {
-            ProcessTable(pathLuaFolder);
+            ProcessNoBundleFile(pathLuaFolder,"lua");
         }
         else
         {
@@ -50,7 +47,16 @@ public class NgEditor : MonoBehaviour
 
             foreach(var p in xmlDic) 
             {
-                ResInfoDic.Add(p.Key,p.Value);
+                //n0515
+                ResInfoStruct info = new ResInfoStruct();
+                info.ResID = p.Key;
+                info.ResHashcode = p.Value;
+                //n0515 todo 这里略微复杂了，特别是涉及多平台情况，不好计算xml不能直接拿到资源路径
+                //另外所有资源是以streamingAsset目录作为起始目录的，这个要修改下
+                //实际路径应该是resVer1.0/ios/res/me/me,这种
+                info.ResSize = 1l;
+                info.ResType = "bundle";
+                ResInfoDic.Add(p.Key, info);
             }
 
         };
@@ -63,11 +69,13 @@ public class NgEditor : MonoBehaviour
 
             buffer.PutInt(ResInfoDic.Count);
 
-            foreach (var p1 in ResInfoDic)
+            foreach (var p1va in ResInfoDic)
             {
-                Debug.Log("最终存到表中的值------p.key:" + p1.Key + " p.value:" + p1.Value);
-                buffer.PutString(p1.Key);
-                buffer.PutString(p1.Value);
+                Debug.Log("最终存到表中的值------p.key:" + p1va.Key + " p.value:" + p1va.Value);
+                buffer.PutString(p1va.Value.ResID);
+                buffer.PutString(p1va.Value.ResHashcode);
+                buffer.PutLong(p1va.Value.ResSize);
+                buffer.PutString(p1va.Value.ResType);
             }
 
             byte[] bs = buffer.ToArray();
@@ -110,7 +118,8 @@ public class NgEditor : MonoBehaviour
 
     }
 
-    private static void ProcessTable(string path)
+    //n0515 改函数名了
+    private static void ProcessNoBundleFile(string path,string resType)
     {
         string[] talbePaths = FindAllFileURLs(path);
         int len = talbePaths.Length;
@@ -119,11 +128,19 @@ public class NgEditor : MonoBehaviour
         {
             string absPath = talbePaths[i];
             string hash = FileHash.MD5File(absPath);
+            long size = FileHelper.GetFileSize(absPath);
             int subLen = absPath.Length - Application.streamingAssetsPath.Length;
             string relePath = absPath.Substring(Application.streamingAssetsPath.Length, subLen);
             Debug.Log("NEditor.ProcessTable  处理单个资源 i--->" + i + " absPath:" + absPath + " hash:" + hash + " relePath:" + relePath);
 
-            ResInfoDic.Add(relePath, hash);
+            //n0515 
+            ResInfoStruct info = new ResInfoStruct();
+            info.ResID = relePath;
+            info.ResHashcode = hash;
+            info.ResSize = size;
+            info.ResType = resType;
+            ResInfoDic.Add(relePath, info);
+
         }
     }
 
@@ -193,3 +210,13 @@ public class LoadXmlAction : BaseCallback
 
 }
 
+//n0515 
+//仅用于搜集table,lua,bundle资源信息
+public struct ResInfoStruct 
+{
+    public string ResID;
+    public string ResHashcode;
+    public long ResSize;
+    //bundle,lua,table
+    public string ResType;
+}

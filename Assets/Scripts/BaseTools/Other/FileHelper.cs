@@ -245,7 +245,7 @@ public class FileHelper{
     #endregion
 
     #region file find
-    public static long GetFileSize(string filePath)
+    public static long GetFileSize2(string filePath)
     {
         long val = 0;
         if (File.Exists(filePath))
@@ -268,7 +268,13 @@ public class FileHelper{
         }
         return val;
     }
-
+    public static long GetFileSize(string sFullName)
+    {
+        long lSize = 0;
+        if (File.Exists(sFullName))
+            lSize = new FileInfo(sFullName).Length;
+        return lSize;
+    }
     /// <summary>
     /// 获取文件MD5
     /// </summary>
