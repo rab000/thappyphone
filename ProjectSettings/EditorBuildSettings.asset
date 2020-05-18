@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Scene/MainMenu.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scene/StageScn1.unity
+    path: Assets/Scene/StageScn.unity
     guid: 9248bb9effbd7ee479ed47333fd686e5
+  - enabled: 1
+    path: Assets/Scene/Game.unity
+    guid: 215325c21555f8e418c3bdc59b2039be
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: e5f6aee5660daec42b6b1cc8aeaa9226,
       type: 2}

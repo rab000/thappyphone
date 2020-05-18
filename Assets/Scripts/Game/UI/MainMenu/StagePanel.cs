@@ -23,7 +23,7 @@ public class StagePanel : MonoBehaviour
 
     public void TempEnterStageClick()
     {
-        AppMgr.GetIns().SwitchScn("StageScn1");
+        AppMgr.GetIns().SwitchScn("StageScn");
     }
 
 
