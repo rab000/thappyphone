@@ -6,7 +6,12 @@ public class SimpleResMgr : SingletonBehaviour<SimpleResMgr>
 {
     public void LoadResXml() 
     {
-    
+        
+    }
+
+    public void LoadBundle() 
+    {
+        
     }
 
 }

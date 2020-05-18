@@ -4,6 +4,8 @@ using ntools;
 
 public class LoginPanel : MonoBehaviour
 {
+    [SerializeField] Button ArBtn;
+
     [SerializeField] Button StageBtn;
 
     [SerializeField] Button GameBtn;
@@ -12,6 +14,7 @@ public class LoginPanel : MonoBehaviour
 
     private void OnEnable()
     {
+        ArBtn.onClick.AddListener(ArClick);
         StageBtn.onClick.AddListener(StageClick);
         GameBtn.onClick.AddListener(GameClick);
         ExitBtn.onClick.AddListener(ExitClick);
@@ -19,9 +22,15 @@ public class LoginPanel : MonoBehaviour
 
     private void OnDisable()
     {
+        ArBtn.onClick.AddListener(ArClick);
         StageBtn.onClick.RemoveAllListeners();
         GameBtn.onClick.RemoveAllListeners();
         ExitBtn.onClick.RemoveAllListeners();
+    }
+
+    public void ArClick() 
+    {
+        AppMgr.GetIns().SwitchScn("AR");
     }
 
     public void StageClick()
