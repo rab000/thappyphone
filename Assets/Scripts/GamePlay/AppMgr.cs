@@ -43,6 +43,7 @@ public class AppMgr : SingletonBehaviour<AppMgr>
 		mainMenu,
 		stageScn,
 		gameScn,
+		loading,
 		nil
 	}
 
@@ -70,7 +71,9 @@ public class AppMgr : SingletonBehaviour<AppMgr>
 				break;
 			case AppState.gameScn:
 				break;
-
+			case AppState.loading:
+				UILoadingWindow.Create();
+				break;
 		}
 	}
 
@@ -95,7 +98,8 @@ public class AppMgr : SingletonBehaviour<AppMgr>
 				break;
 			case AppState.gameScn:
 				break;
-
+			case AppState.loading:
+				break;
 		}
 	}
 
@@ -109,7 +113,9 @@ public class AppMgr : SingletonBehaviour<AppMgr>
 				break;
 			case AppState.gameScn:
 				break;
-
+			case AppState.loading:
+				UILoadingWindow.Close();
+				break;
 		}
 	}
 

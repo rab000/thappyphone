@@ -48,5 +48,23 @@ public class GameEnum
         }
     }
 
+    public static string PersistPath
+    {
+        get
+        {
+#if UNITY_ANDROID
+            return Application.persistentDataPath;
+#elif UNITY_IOS
+		//注意ios，mac上需要加file:///
+		return "file///"+Application.persistentDataPath;		
+#elif UNITY_EDITOR_OSX
+        return "file:///"+Application.persistentDataPath;	
+#elif UNITY_EDITOR_WIN
+            //win下是否有file:///都能加载
+            return "file:///" + Application.persistentDataPath;
+#endif
+        }
+    }
+
 
 }

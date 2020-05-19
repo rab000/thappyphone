@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-public class loadingWindow :MonoBehaviour {
+public class UILoadingWindow :SingletonBehaviour<UILoadingWindow> {
 
 	public Image BgImg;
 	public Slider LoadingSlider;
@@ -13,13 +13,35 @@ public class loadingWindow :MonoBehaviour {
     /// </summary>
     public bool BeProgressSmoth = false;
 
-	public void Awake ()
+    private static GameObject SelfGo;
+
+    private void OnEnable()
     {
-        DontDestroyOnLoad(gameObject);
-        //Debug.LogError("GameLoading打开时注册更新事件");
+        
         ntools.Messenger.AddListener<float>("updateLoadingProgress", UpdateProgress);
         ntools.Messenger.AddListener<string>("updateLoadingText", UpdateInfoText);
     }
+
+    private void OnDisable()
+    {
+        LoadingSlider.value = 0;
+        ntools.Messenger.RemoveListener<float>("updateLoadingProgress", UpdateProgress);
+        ntools.Messenger.RemoveListener<string>("updateLoadingText", UpdateInfoText);
+    }
+
+    public static void Create() 
+    {
+        SelfGo = GameObject.Instantiate(Resources.Load("Prefabs/UI/LoadingCanvas")) as GameObject;
+        SelfGo.name = "LoadingCanvas";
+
+    }
+
+    public static void Close() 
+    {       
+        Destroy(SelfGo);
+        SelfGo = null;
+    }
+
 
 	public void Open(object uiDatas=null)
     {	

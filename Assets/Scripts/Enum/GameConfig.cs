@@ -26,6 +26,33 @@ public class GameConfig
     /// </summary>
     public static InputCtrlTypeEnum InputCtrlType = InputCtrlTypeEnum.pc;
 
+
+    public enum ResRootPathEnum
+    {
+        stream,
+        persist
+    }
+
+    public static ResRootPathEnum ResRootPath = ResRootPathEnum.persist;
+
+    public static string ResRootPathStr 
+    {
+        get 
+        {
+            string url = null;
+            switch (ResRootPath) 
+            {
+                case ResRootPathEnum.stream:
+                    url = GameEnum.StreamPath;
+                    break;
+                case ResRootPathEnum.persist:
+                    url = GameEnum.PersistPath;
+                    break;
+            }
+            return url;
+        }
+    }
+
     //导入并解析配置文件
     public static void LoadConfig()
     {
@@ -72,6 +99,20 @@ public class GameConfig
                 InputCtrlType = InputCtrlTypeEnum.pc;
                 break;
         }
+
+        string resRootPath = configDic["ResRootPath"];
+
+        switch (resRootPath)
+        {
+            case "stream":
+                ResRootPath = ResRootPathEnum.stream;
+                break;
+            case "persist":
+                ResRootPath = ResRootPathEnum.persist;
+                break;
+        }
+
+
     }
 
 }
