@@ -134,7 +134,7 @@ public class SimpleResMgr : SingletonBehaviour<SimpleResMgr>
             //    Debug.Log(str);
             //}
 
-            AsyncOperation async = SceneManager.LoadSceneAsync("Stage1");
+            AsyncOperation async = SceneManager.LoadSceneAsync(scnName);
             async.allowSceneActivation = false;
             while (async.progress < 0.9f)
             {
