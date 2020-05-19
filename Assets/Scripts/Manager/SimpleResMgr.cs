@@ -1,13 +1,69 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 public class SimpleResMgr : SingletonBehaviour<SimpleResMgr>
 {
-    public void LoadResXml() 
+
+    public void LoadResXml(string url)
     {
+        var ct = StartCoroutine(LoadXml(url));
+    }
+
+    IEnumerator LoadXml(string url) 
+    {
+
+        //https://forum.unity.com/threads/how-to-get-assetbundlemanifest.495494/
+
+        //UnityWebRequest request = UnityWebRequest.Get(url);
+        //yield return request.SendWebRequest();
+        Debug.Log("url:"+url);
+
+        UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url);
         
+        //UnityWebRequest request = new UnityWebRequest(url);
+        //request.downloadHandler = new DownloadHandlerBuffer();
+
+        yield return request.SendWebRequest();
+
+        if (request.isHttpError || request.isNetworkError)
+        {
+            Debug.LogError("FileHelper.go() www.error=" + request.error + " url:" + url + " isHttpError:" + request.isHttpError + " isNetworkError:" + request.isNetworkError);
+            yield break;
+        }
+        else
+        {
+
+            AssetBundle manifestBundle = DownloadHandlerAssetBundle.GetContent(request);
+
+            AssetBundleManifest manifest = manifestBundle.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
+
+
+            //AssetBundleManifest xml = (AssetBundleManifest)www.assetBundle.LoadAsset("assetbundlemanifest");//这个名称永远固定，无论bundle名是什么，asset名都是这个
+
+
+            //AssetBundle ab11 = DownloadHandlerAssetBundle.GetContent(request);
+
+
+
+
+            //AssetBundle ab = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+
+            //AssetBundleManifest xml = (AssetBundleManifest)ab.LoadAsset("assetbundlemanifest");
+          
+
+
+
+            string[] resNames = manifest.GetAllAssetBundles();
+
+            for (int i = 0; i < resNames.Length; i++)
+            {
+                Debug.Log("i:" + i + " name:" + resNames[i]);
+            }
+
+        }
     }
 
     public void LoadBundle() 

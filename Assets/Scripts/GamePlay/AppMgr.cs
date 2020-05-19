@@ -6,14 +6,26 @@ using UnityEngine.SceneManagement;
 
 public class AppMgr : SingletonBehaviour<AppMgr>
 {
-    #region helper
-    public void SetFrameRate(int fr)
+	private void Start()
+	{		
+		GameConfig.LoadConfig();
+
+		GameEnum.SB1.Append(GameEnum.StreamPath);
+		GameEnum.SB1.Append("/bundle/");
+		GameEnum.SB1.Append(GameEnum.CurPlatform.ToString());
+		string xmlPath = GameEnum.SB1.ToString();
+		GameEnum.SB1.Clear();
+		SimpleResMgr.GetIns().LoadResXml(xmlPath);
+	}
+
+	#region helper
+	public void SetFrameRate(int fr)
 	{
 		Application.targetFrameRate = fr;
 	}
 
 	public void SwitchScn(string scnName) 
-	{
+	{		
 		SceneManager.LoadScene(scnName);
 	}
 
@@ -54,6 +66,7 @@ public class AppMgr : SingletonBehaviour<AppMgr>
 			case AppState.mainMenu:
 				break;
 			case AppState.stageScn:
+				//StageScnMgr.Create();
 				break;
 			case AppState.gameScn:
 				break;
