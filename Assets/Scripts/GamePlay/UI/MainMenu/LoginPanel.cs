@@ -35,7 +35,7 @@ public class LoginPanel : MonoBehaviour
 
     public void StageClick()
     {
-        Messenger.Broadcast<string>(GameEvent.SWITCH_MENU_STATE,"stage");       
+        Messenger.Broadcast<string>(GameEvent.switch_menu_state,"stage");       
     }
 
     public void GameClick() 

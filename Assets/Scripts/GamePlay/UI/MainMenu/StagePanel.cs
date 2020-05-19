@@ -18,7 +18,7 @@ public class StagePanel : MonoBehaviour
 
     public void ExitClick()
     {       
-        Messenger.Broadcast<string>(GameEvent.SWITCH_MENU_STATE, "login");
+        Messenger.Broadcast<string>(GameEvent.switch_menu_state, "login");
     }
 
     public void TempEnterStageClick()

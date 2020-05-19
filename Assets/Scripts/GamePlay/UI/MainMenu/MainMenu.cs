@@ -18,12 +18,12 @@ public class MainMenu : MonoBehaviour
 
 	private void OnEnable()
 	{
-		Messenger.AddListener<string>(GameEvent.SWITCH_MENU_STATE, OnSwitchMainmenu);
+		Messenger.AddListener<string>(GameEvent.switch_menu_state, OnSwitchMainmenu);
 	}
 
 	private void OnDisable()
 	{
-		Messenger.RemoveListener<string>(GameEvent.SWITCH_MENU_STATE, OnSwitchMainmenu);
+		Messenger.RemoveListener<string>(GameEvent.switch_menu_state, OnSwitchMainmenu);
 	}
 
 	private void OnSwitchMainmenu(string state) 

@@ -5,7 +5,14 @@ using UnityEngine;
 public class GameEvent
 {
     //切menu状态
-    public static string SWITCH_MENU_STATE = "switch_menu_state";
+    public static string switch_menu_state = "switch_menu_state";
+
+    //更新进度条百分比
+    public static string loading_progress = "updateLoadingProgress";
+
+    //更新进度条文字
+    public static string loading_progress_text = "updateLoadingText";
+
 
 
 }
