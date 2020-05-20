@@ -13,6 +13,8 @@ public class GameEvent
     //更新进度条文字
     public static string loading_progress_text = "updateLoadingText";
 
+    //spr创建
+    public static string create_spr = "create_spr";
 
 
 }

@@ -26,31 +26,37 @@ public class StagePanel : MonoBehaviour
         //NTODO 这里数据应该列表，列表数据来自server
         StageScnMgr.scnInfo = new StageScnInfoStruct();
         StageScnMgr.scnInfo.ScnName = "stage1";
-        StageScnMgr.scnInfo.roleList = new List<StageRoleInfoStruct>();
+        StageScnMgr.scnInfo.roleList = new List<PlayerInfoStruct>();
 
-        StageRoleInfoStruct r1 = new StageRoleInfoStruct();
-        r1.RoleID = "isabella";
-        r1.BodyResID = "mdl_isabella_stagea_hairb.ab";
+        PlayerInfoStruct r1 = new PlayerInfoStruct();
+        r1.ID = "isabella";
+        r1.BodyModelResID = "mdl_isabella_stagea_hairb";
+        StageScnMgr.scnInfo.roleList.Add(r1);
 
-        StageRoleInfoStruct r2 = new StageRoleInfoStruct();
-        r2.RoleID = "katya";
-        r2.BodyResID = "mdl_katya_stagea.ab";
+        PlayerInfoStruct r2 = new PlayerInfoStruct();
+        r2.ID = "katya";
+        r2.BodyModelResID = "mdl_katya_stagea";
+        StageScnMgr.scnInfo.roleList.Add(r2);
 
-        StageRoleInfoStruct r3 = new StageRoleInfoStruct();
-        r3.RoleID = "moxi";
-        r3.BodyResID = "mdl_moxi_stagea.ab";
+        PlayerInfoStruct r3 = new PlayerInfoStruct();
+        r3.ID = "moxi";
+        r3.BodyModelResID = "mdl_moxi_stagea";
+        StageScnMgr.scnInfo.roleList.Add(r3);
 
-        StageRoleInfoStruct r4 = new StageRoleInfoStruct();
-        r4.RoleID = "rose";
-        r4.BodyResID = "mdl_rose_stagea.ab";
+        PlayerInfoStruct r4 = new PlayerInfoStruct();
+        r4.ID = "rose";
+        r4.BodyModelResID = "mdl_rose_stagea";
+        StageScnMgr.scnInfo.roleList.Add(r4);
 
-        StageRoleInfoStruct r5 = new StageRoleInfoStruct();
-        r5.RoleID = "tamamo";
-        r5.BodyResID = "mdl_tamamo_stagea.ab";
+        PlayerInfoStruct r5 = new PlayerInfoStruct();
+        r5.ID = "tamamo";
+        r5.BodyModelResID = "mdl_tamamo_stagea";
+        StageScnMgr.scnInfo.roleList.Add(r5);
 
-        StageRoleInfoStruct r6 = new StageRoleInfoStruct();
-        r6.RoleID = "yueling";
-        r6.BodyResID = "mdl_yueling_stagea_low_addblendshape_migicacloth_variant.ab";
+        PlayerInfoStruct r6 = new PlayerInfoStruct();
+        r6.ID = "yueling";
+        r6.BodyModelResID = "mdl_yueling_stagea_low_addblendshape_migicacloth_variant";
+        StageScnMgr.scnInfo.roleList.Add(r6);
 
         AppMgr.GetIns().SetState(AppMgr.AppState.loading);
 

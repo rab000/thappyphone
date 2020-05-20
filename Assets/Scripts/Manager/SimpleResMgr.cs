@@ -95,14 +95,16 @@ public class SimpleResMgr : SingletonBehaviour<SimpleResMgr>
 
         if (request.isHttpError || request.isNetworkError)
         {
-            Debug.LogError("FileHelper.go() www.error=" + request.error + " url:" + url + " isHttpError:" + request.isHttpError + " isNetworkError:" + request.isNetworkError);
+            Debug.LogError("SimpleResMgr.LoadStreamBundle() www.error=" + request.error + " url:" + url + " isHttpError:" + request.isHttpError + " isNetworkError:" + request.isNetworkError);
 
             errorBack?.Invoke(request.error);
+
             yield break;
         }
         else
         {
             AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
+
             callback?.Invoke(bundle);
         }
 

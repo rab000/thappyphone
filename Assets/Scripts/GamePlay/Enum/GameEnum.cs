@@ -8,6 +8,8 @@ public class GameEnum
 
     public static StringBuilder SB2 = new StringBuilder();
 
+    public static string BundleExtName = ".ab";
+
     public enum PlatformEnum
     {
         win,

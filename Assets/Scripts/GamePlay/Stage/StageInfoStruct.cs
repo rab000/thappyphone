@@ -6,18 +6,6 @@ public struct StageScnInfoStruct
 {
     public string ScnName;
 
-    public List<StageRoleInfoStruct> roleList;
-
-}
-
-public struct StageRoleInfoStruct
-{
-    public string RoleID;
-
-    public string BodyResID;
-
-    public string HeadResID;
-
-    public string HairResID;
+    public List<PlayerInfoStruct> roleList;
 
 }

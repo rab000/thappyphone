@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFaceCtrComp : Comp
+public class ActorFaceCtrComp : Comp
 {
-    public PlayerFaceCtrComp(AbsSpr spr) : base(spr) 
+    public ActorFaceCtrComp(AbsSpr spr) : base(spr) 
     {
     
     }

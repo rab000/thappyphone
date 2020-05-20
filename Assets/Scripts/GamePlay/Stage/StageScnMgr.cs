@@ -74,7 +74,7 @@ public class StageScnMgr : SingletonBehaviour<StageScnMgr>
 				GameEnum.SB1.Append(GameConfig.ResRootPathStr);
 				GameEnum.SB1.Append("/bundle/");
 				GameEnum.SB1.Append(scnInfo.ScnName);
-				GameEnum.SB1.Append(".ab");
+				GameEnum.SB1.Append(GameEnum.BundleExtName);
 				string scnBundlePath = GameEnum.SB1.ToString();				
 				LogMgr.I("StageScnMgr","SetState","加载stage场景 scnBundlePath:"+ scnBundlePath, BeShowLog);
 				GameEnum.SB1.Clear();
@@ -198,57 +198,27 @@ public class StageScnMgr : SingletonBehaviour<StageScnMgr>
 		int count = scnInfo.roleList.Count;
 		for (int i = 0; i < count; i++)
 		{
-			//加载流程的问题
+			var cb = LoadRole(scnInfo.roleList[i]);
+			cbMgr.Add(cb);
 		}
 
-		//NTODO 下一步，载入角色
-
-		//foreach (var p in resInfoDicInStream)
-		//{
-		//	cbMgr.Add(BuildCB(p.Key));
-
-		//}//foreach结尾
-
-
-		////解压resVer.txt
-		//cbMgr.Add(BuildCB("/resVer.txt"));
-		////解压resInfoList.bytes
-		//cbMgr.Add(BuildCB("/resInfoList.bytes"));
-
-		//cbMgr.Start();
-
-
+		cbMgr.Start();
+		
 	}
 
-	private BaseCallback LoadRole(string relePath)
+	private BaseCallback LoadRole(PlayerInfoStruct roleInfo)
 	{
-		//Utils.SB.Append(UnityUtil.StreamingAssetsPath);
-		//Utils.SB.Append(relePath);
-		string path = Utils.SB.ToString();
-		Utils.ClearSB();
 		BaseCallback cb = new BaseCallback();
 		cb.OnStart = () => {
 
-			Action<byte[]> onSuccess = (bs) =>
+			Listener<string> onloadOver = (id) =>
 			{
-				//读取到stream中的bundle后存到persist中
-				Utils.SB.Append(UnityUtil.PersistentPath);
-				Utils.SB.Append(relePath);
-				string bundlePath = Utils.SB.ToString();
-				string parentFolderPath = FileHelper.GetDirectorName(bundlePath);
-				FileHelper.CreateFolder(parentFolderPath);
-				//LogMgr.I("UpdateMgr", "BuildCB", "解压资源成功 原始路径:"+ path+" 目标路径:" + bundlePath+" 文件夹路径:"+ parentFolderPath, BeShowLog);
-				FileHelper.WriteBytes2File_Create(bundlePath, bs);
-				Utils.SB.Clear();
+				LogMgr.I("StageScnMgr","LoadRole.cb.OnStart.onloadOver"," id:"+id,BeShowLog);
 				cb.End();
 			};
-			Action<string> onFaile = (error) =>
-			{
-				LogMgr.E("UpdateMgr", "BuildCB", "解压资源 原始路径:" + path + "失败，解压中断", BeShowLog);
-			};
 
-			//LogMgr.I("UpdateMgr", "BuildCB", "开始解压资源:" + path, BeShowLog);
-			FileHelper.GetIns().ReadBytesFromApkFile(path, onSuccess, onFaile);
+			TActor.Create(roleInfo, onloadOver);
+
 		};
 
 		return cb;

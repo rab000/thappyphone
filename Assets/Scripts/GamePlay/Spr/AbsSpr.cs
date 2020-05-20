@@ -13,4 +13,13 @@ public abstract class AbsSpr : MonoBehaviour
     
     }
 
+    public virtual void tUpdate() 
+    {
+    
+    }
+    public virtual void UnloadRes() 
+    {
+    
+    }
+
 }

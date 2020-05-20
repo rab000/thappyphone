@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerPerformComp : Comp
+public class ActorPerformComp : Comp
 {
-    public PlayerPerformComp(AbsSpr spr) : base(spr)
+    public ActorPerformComp(AbsSpr spr) : base(spr)
     {
-    
+        
     }
 
 }

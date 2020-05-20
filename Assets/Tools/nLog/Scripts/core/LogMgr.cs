@@ -67,7 +67,7 @@ namespace NLog
             Application.logMessageReceived -= MsgRec;
         }
 
-        public static void I(string msg, string tag = LogDefault.TAG_NAME_DEFALUT,LogColorEnum color = LogColorEnum.blue)
+        public static void I(string msg, string tag = LogDefault.TAG_NAME_DEFALUT,LogColorEnum color = LogColorEnum.green)
         {
             if (!LogConfig.BeShowLog) return;
 
@@ -153,7 +153,7 @@ namespace NLog
 
         }
 
-        public static void I(string className, string funcName, string content, bool beShow = true, string tag = LogDefault.TAG_NAME_DEFALUT, LogColorEnum color = LogColorEnum.blue)
+        public static void I(string className, string funcName, string content, bool beShow = true, string tag = LogDefault.TAG_NAME_DEFALUT, LogColorEnum color = LogColorEnum.green)
         {
             if (!LogConfig.BeShowLog) return;
             if (!beShow) return;
@@ -337,7 +337,7 @@ namespace NLog
                     logStruct.LogColor = LogColorEnum.yellow;
                     break;
                 case LogType.Log:
-                    logStruct.LogColor = LogColorEnum.blue;
+                    logStruct.LogColor = LogColorEnum.green;
                     break;
             }
             
