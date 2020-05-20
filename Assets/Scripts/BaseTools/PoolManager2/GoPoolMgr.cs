@@ -105,7 +105,10 @@ public class GoPoolMgr : SingletonBehaviour<GoPoolMgr> {
 
         poolDic.Clear();
 
-        ResMgr.GC();
+        //ResMgr.GC();
+
+        Resources.UnloadUnusedAssets();
+        System.GC.Collect();
     }
 
 }
