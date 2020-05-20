@@ -12,6 +12,8 @@ public struct StageScnInfoStruct
 
 public struct StageRoleInfoStruct
 {
+    public string RoleID;
+
     public string BodyResID;
 
     public string HeadResID;

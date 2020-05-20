@@ -32,6 +32,8 @@ public class StageScnMgr : SingletonBehaviour<StageScnMgr>
     {
         GameObject go = new GameObject("stageScnMgr");
         var stageScnMgr = go.AddComponent<StageScnMgr>();
+		go.AddComponent<StageSprMgr>();
+
     }
 
     private void Start()
@@ -193,9 +195,10 @@ public class StageScnMgr : SingletonBehaviour<StageScnMgr>
 			LogMgr.I("StageScnMgr", "LoadRole", "载入进度 progress:" + progress, BeShowLog);
 		};
 
-		for (int i = 0; i < scnInfo.roleList.Count; i++)
+		int count = scnInfo.roleList.Count;
+		for (int i = 0; i < count; i++)
 		{
-
+			//加载流程的问题
 		}
 
 		//NTODO 下一步，载入角色
@@ -217,10 +220,10 @@ public class StageScnMgr : SingletonBehaviour<StageScnMgr>
 
 	}
 
-	private BaseCallback BuildCB(string relePath)
+	private BaseCallback LoadRole(string relePath)
 	{
-		Utils.SB.Append(UnityUtil.StreamingAssetsPath);
-		Utils.SB.Append(relePath);
+		//Utils.SB.Append(UnityUtil.StreamingAssetsPath);
+		//Utils.SB.Append(relePath);
 		string path = Utils.SB.ToString();
 		Utils.ClearSB();
 		BaseCallback cb = new BaseCallback();

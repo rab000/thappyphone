@@ -219,7 +219,6 @@ public class ResMgr : SingletonBehaviour<ResMgr> {
 		}
 		return null;
 	}
-    //NTODO 下一步,这里没有载入技能表数据
 	/// <summary>
 	/// 载入资源总表
 	/// </summary>
